@@ -25,6 +25,18 @@ public class BookService {
 	public Book getBookById(int id) {
 		return bRepo.findById(id).get();
 	}
+
+	public List<Book> getBooksByName(String name) {
+		return bRepo.findByNameContaining(name);
+	}
+
+	public List<Book> getBooksByNameOrAuthor(String name) {
+		List<Book> b1 = bRepo.findByNameContaining(name);
+		List<Book> b2 = bRepo.findByAuthorContaining(name);
+		b1.addAll(b2);
+		return b1;
+	}
+
 	public void deleteById(int id) {
 		bRepo.deleteById(id);
 	}

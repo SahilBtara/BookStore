@@ -31,6 +31,18 @@ public class BookController {
 	public String bookRegister() {
 		return "bookRegister";
 	}
+
+	@RequestMapping(path = {"/book_search"})
+	public String home(Model model, String keyword) {
+		if(keyword!=null && keyword!="") {
+			List<Book> list = service.getBooksByNameOrAuthor(keyword);
+			model.addAttribute("list", list);
+		}else {
+			List<Book> list = service.getAllBook();
+			model.addAttribute("list", list);
+		}
+		return "bookSearch";
+	}
 	
 	@GetMapping("/available_books")
 	public ModelAndView getAllBook() {
@@ -60,6 +72,14 @@ public class BookController {
 		myBookService.saveMyBooks(mb);
 		return "redirect:/my_books";
 	}
+
+	// @RequestMapping("/book_search/{name}")
+	// // @RequestMapping(value="searchBooks", method = RequestMethod.GET)
+	// public void getBooks(@PathVariable("name") String name) {
+	// 	Book b=service.getBookByName(name);
+	// 	System.out.println(b);
+	// 	// return "redirect:/my_books";
+	// }
 	
 	@RequestMapping("/editBook/{id}")
 	public String editBook(@PathVariable("id") int id,Model model) {

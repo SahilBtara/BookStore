@@ -1,18 +1,24 @@
 package com.bookStore.entity;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
 @Entity
+@Table(name="books")
 public class Book {
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int id;
+	@Column(name = "name")
 	private String name;
+	@Column(name = "author")
 	private String author;
+	@Column(name = "price")
 	private String price;
 	public Book(int id, String name, String author, String price) {
 		super();
@@ -49,5 +55,7 @@ public class Book {
 	public void setPrice(String price) {
 		this.price = price;
 	}
-	
+	public String toString() {
+		return new String(id + " " + name + " " + author + " " + price);
+	}
 }
